@@ -4,7 +4,18 @@ import streamlit as st
 
 from openai import OpenAI
 
-client = OpenAI()
+# OpenAI API 키 설정
+try:
+    api_key = st.secrets["OPENAI_API_KEY"]
+    if not api_key:
+        st.error("OpenAI API 키가 설정되지 않았습니다. Streamlit Cloud의 Secrets에서 'OPENAI_API_KEY'를 설정해주세요.")
+        st.stop()
+except Exception as e:
+    st.error("OpenAI API 키를 가져오는데 실패했습니다. Streamlit Cloud의 Secrets에서 'OPENAI_API_KEY'를 설정해주세요.")
+    st.stop()
+
+# OpenAI 클라이언트 초기화
+client = OpenAI(api_key=api_key)
 
 st.title("자동 보고서 생성기 Created by Ctrl+Z")
 subject = st.text_input("어느 지역에 대한 보고서를 작성할까요?")
