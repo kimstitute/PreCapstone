@@ -4,7 +4,7 @@ import streamlit as st
 
 from openai import OpenAI
 
-client = OpenAI()
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 st.title("자동 보고서 생성기 Created by Ctrl+Z")
 subject = st.text_input("어느 지역에 대한 보고서를 작성할까요?")
